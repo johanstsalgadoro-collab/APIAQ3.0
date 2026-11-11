@@ -1,0 +1,375 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#071827" />
+  <title>APIAQ · Presentación final</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <canvas id="airfield" aria-hidden="true"></canvas>
+  <div class="deck-shell">
+    <header class="deck-topbar">
+      <div class="brand-left"><img src="assets/brand/ecci.png" alt="Universidad ECCI" /></div>
+      <div class="deck-title">Electiva I · Python <span>Proyecto final</span></div>
+      <div class="brand-right"><img src="assets/brand/apiaq.png" alt="APIAQ Monitor de Calidad del Aire" /></div>
+    </header>
+
+    <main id="deck" class="deck" aria-live="polite">
+      <section class="slide active hero" data-title="Portada">
+        <div class="hero-orbit orbit-a"></div><div class="hero-orbit orbit-b"></div>
+        <div class="hero-copy">
+          <div class="eyebrow reveal" style="--d:.05s">Universidad ECCI · Tecnología en Desarrollo Informático</div>
+          <h1 class="reveal" style="--d:.13s">APIAQ</h1>
+          <h2 class="reveal" style="--d:.23s">Monitor de Calidad del Aire</h2>
+          <p class="lead reveal" style="--d:.33s">Aplicativo web con backend en Python que consulta OpenAQ, interpreta mediciones, calcula AQI EPA cuando aplica y presenta una referencia OMS por separado.</p>
+          <div class="hero-tags reveal" style="--d:.43s"><span>Python</span><span>Flask</span><span>OpenAQ</span><span>Angular</span><span>SQLite</span><span>Scrum</span></div>
+          <div class="team reveal" style="--d:.53s">Johan Stwee Salgado Rodríguez · Santiago Nicolás López López</div>
+        </div>
+        <div class="hero-logo reveal" style="--d:.3s"><img src="assets/brand/apiaq.png" alt="Logo APIAQ" /></div>
+      </section>
+
+      <section class="slide" data-title="Ruta del proyecto">
+        <div class="slide-heading"><span class="kicker">01 · Recorrido</span><h2>De una necesidad real a un producto funcional</h2></div>
+        <div class="journey">
+          <div class="journey-node reveal" style="--d:.05s"><b>Problema</b><span>Datos ambientales difíciles de interpretar</span></div>
+          <div class="journey-arrow reveal" style="--d:.12s">→</div>
+          <div class="journey-node reveal" style="--d:.19s"><b>Diseño</b><span>Requisitos, historias, UML y mockups</span></div>
+          <div class="journey-arrow reveal" style="--d:.26s">→</div>
+          <div class="journey-node reveal" style="--d:.33s"><b>Scrum</b><span>8 sprints · 40 tareas</span></div>
+          <div class="journey-arrow reveal" style="--d:.40s">→</div>
+          <div class="journey-node reveal" style="--d:.47s"><b>Python</b><span>API, reglas, datos, persistencia y gráficas</span></div>
+          <div class="journey-arrow reveal" style="--d:.54s">→</div>
+          <div class="journey-node reveal" style="--d:.61s"><b>Pruebas</b><span>Unitarias, integración y flujo web</span></div>
+          <div class="journey-arrow reveal" style="--d:.68s">→</div>
+          <div class="journey-node reveal" style="--d:.75s"><b>Resultado</b><span>Aplicación completa en localhost</span></div>
+        </div>
+        <div class="big-stat-row">
+          <div class="stat reveal" style="--d:.3s"><strong>8</strong><span>sprints ejecutados</span></div>
+          <div class="stat reveal" style="--d:.38s"><strong>40</strong><span>actividades cerradas</span></div>
+          <div class="stat reveal" style="--d:.46s"><strong>52</strong><span>pruebas automatizadas en Python</span></div>
+          <div class="stat reveal" style="--d:.54s"><strong>2</strong><span>repositorios GitHub</span></div>
+        </div>
+      </section>
+
+      <section class="slide" data-title="Problema y objetivo">
+        <div class="slide-heading"><span class="kicker">02 · Problema</span><h2>El dato existía. El reto era volverlo comprensible.</h2></div>
+        <div class="split-grid">
+          <article class="glass-card reveal" style="--d:.08s">
+            <div class="card-icon">?</div><h3>Situación inicial</h3>
+            <p>Las mediciones de PM2.5, NO₂ y O₃ aparecen con unidades, periodos, estaciones y fechas que un usuario no técnico puede interpretar mal.</p>
+          </article>
+          <article class="glass-card reveal" style="--d:.16s">
+            <div class="card-icon">◎</div><h3>Objetivo</h3>
+            <p>Consultar datos abiertos de ciudades colombianas y presentarlos con contexto: valor, unidad, fuente, AQI EPA cuando sea válido, referencia OMS, historial y gráficas.</p>
+          </article>
+          <article class="glass-card reveal" style="--d:.24s">
+            <div class="card-icon">!</div><h3>Decisión clave</h3>
+            <p>La aplicación nunca inventa mediciones ni convierte unidades automáticamente cuando el cálculo sería técnicamente incorrecto.</p>
+          </article>
+          <article class="glass-card reveal" style="--d:.32s">
+            <div class="card-icon">↗</div><h3>Alcance final</h3>
+            <p>Frontend Angular + backend Flask/Python, OpenAQ, SQLite, reportes con pandas/Matplotlib, historial descargable y administración básica.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="slide" data-title="ODS">
+        <div class="slide-heading"><span class="kicker">03 · Impacto</span><h2>Objetivos de Desarrollo Sostenible relacionados</h2></div>
+        <div class="ods-grid">
+          <div class="ods ods3 reveal" style="--d:.08s"><span class="ods-num">3</span><h3>Salud y bienestar</h3><p>Facilita la lectura de información ambiental que puede orientar precauciones generales sobre exposición a contaminantes.</p><b>Contribución directa</b></div>
+          <div class="ods ods11 reveal" style="--d:.18s"><span class="ods-num">11</span><h3>Ciudades y comunidades sostenibles</h3><p>Se relaciona especialmente con la meta 11.6, que incluye reducir el impacto ambiental urbano y atender la calidad del aire.</p><b>Contribución principal</b></div>
+          <div class="ods ods13 reveal" style="--d:.28s"><span class="ods-num">13</span><h3>Acción por el clima</h3><p>El monitoreo y la cultura de datos ambientales apoyan la comprensión de fenómenos atmosféricos y decisiones informadas.</p><b>Contribución complementaria</b></div>
+        </div>
+        <p class="footnote reveal" style="--d:.4s">APIAQ es una herramienta informativa y académica; no sustituye alertas oficiales ni recomendaciones médicas.</p>
+      </section>
+
+      <section class="slide" data-title="Arquitectura">
+        <div class="slide-heading"><span class="kicker">04 · Arquitectura</span><h2>¿Cómo viaja una consulta?</h2></div>
+        <div class="architecture">
+          <div class="arch-box reveal" style="--d:.06s"><small>Usuario</small><b>Angular</b><span>localhost:4200</span></div>
+          <div class="arch-line reveal" style="--d:.13s">HTTP / JSON →</div>
+          <div class="arch-box python reveal" style="--d:.20s"><small>Servidor</small><b>Flask + Python</b><span>localhost:5000</span></div>
+          <div class="arch-line reveal" style="--d:.27s">GET v3 →</div>
+          <div class="arch-box reveal" style="--d:.34s"><small>Fuente externa</small><b>OpenAQ</b><span>API pública</span></div>
+        </div>
+        <div class="arch-support">
+          <div class="mini-card reveal" style="--d:.4s"><b>Normalización</b><span>valida contaminante, fecha, unidad, periodo y duplicados</span></div>
+          <div class="mini-card reveal" style="--d:.48s"><b>AQI / OMS</b><span>aplica reglas separadas y evita clasificaciones inválidas</span></div>
+          <div class="mini-card reveal" style="--d:.56s"><b>SQLite</b><span>guarda consultas y mediciones para historial</span></div>
+          <div class="mini-card reveal" style="--d:.64s"><b>pandas + Matplotlib</b><span>resume y genera gráficas PNG servidas por Flask</span></div>
+        </div>
+      </section>
+
+      <section class="slide" data-title="Scrum">
+        <div class="slide-heading"><span class="kicker">05 · Scrum</span><h2>Ocho sprints para construir el producto por etapas</h2></div>
+        <div class="sprint-timeline">
+          <div class="sprint reveal" style="--d:.03s"><span>1</span><b>Análisis y requisitos</b><small>MCA-1 a MCA-5</small></div>
+          <div class="sprint reveal" style="--d:.09s"><span>2</span><b>Historias, UML y mockups</b><small>MCA-6 a MCA-10</small></div>
+          <div class="sprint reveal" style="--d:.15s"><span>3</span><b>Arquitectura y GitHub</b><small>MCA-11 a MCA-15</small></div>
+          <div class="sprint reveal" style="--d:.21s"><span>4</span><b>Backend / OpenAQ</b><small>MCA-16 a MCA-20</small></div>
+          <div class="sprint reveal" style="--d:.27s"><span>5</span><b>AQI, OMS e historial</b><small>MCA-21 a MCA-25</small></div>
+          <div class="sprint reveal" style="--d:.33s"><span>6</span><b>Frontend y reportes</b><small>MCA-26 a MCA-30</small></div>
+          <div class="sprint reveal" style="--d:.39s"><span>7</span><b>Pruebas y aceptación</b><small>MCA-31 a MCA-35</small></div>
+          <div class="sprint reveal" style="--d:.45s"><span>8</span><b>Cierre y entrega</b><small>MCA-36 a MCA-40</small></div>
+        </div>
+        <div class="evidence-strip reveal" style="--d:.56s"><img src="assets/screens/jira_sprint.jpg" alt="Evidencia de Jira" /><img src="assets/screens/reunion.jpg" alt="Evidencia de reunión" /></div>
+        <p class="footnote">Los 8 sprints fueron ejecutados; en Aulas Virtuales se documentaron 6 porque eran los solicitados como informes individuales.</p>
+      </section>
+
+      <section class="slide" data-title="UML y diseño">
+        <div class="slide-heading"><span class="kicker">06 · Diseño</span><h2>Antes de programar, modelamos el sistema</h2></div>
+        <div class="uml-grid">
+          <figure class="image-card reveal" style="--d:.05s"><img src="assets/diagrams/casos_uso.png" alt="Diagrama de casos de uso"><figcaption>Casos de uso</figcaption></figure>
+          <figure class="image-card reveal" style="--d:.13s"><img src="assets/diagrams/clases.png" alt="Diagrama de clases"><figcaption>Clases</figcaption></figure>
+          <figure class="image-card reveal" style="--d:.21s"><img src="assets/diagrams/actividades.png" alt="Diagrama de actividades"><figcaption>Actividades</figcaption></figure>
+          <figure class="image-card reveal" style="--d:.29s"><img src="assets/diagrams/secuencia.png" alt="Diagrama de secuencia"><figcaption>Secuencia</figcaption></figure>
+        </div>
+      </section>
+
+      <section class="slide" data-title="Del mockup al producto">
+        <div class="slide-heading"><span class="kicker">07 · Evolución</span><h2>Del diseño inicial a una aplicación funcionando</h2></div>
+        <div class="compare">
+          <div class="compare-side reveal" style="--d:.08s"><span class="compare-tag">Diseño</span><div class="mock-window"><div class="mock-bar"></div><div class="mock-form"></div><div class="mock-cards"><i></i><i></i><i></i></div><div class="mock-chart"></div></div><p>Se definieron navegación, tarjetas, historial y bloques separados para AQI y OMS.</p></div>
+          <div class="compare-arrow reveal" style="--d:.18s">→</div>
+          <div class="compare-side reveal" style="--d:.28s"><span class="compare-tag live">Producto</span><img class="app-shot" src="assets/screens/app_inicio.jpg" alt="Aplicación final"><p>La versión final conserva el flujo de consulta y agrega backend real, historial, errores, gráfica y administración.</p></div>
+        </div>
+      </section>
+
+      <section class="slide python-focus" data-title="Python en el proyecto">
+        <div class="slide-heading"><span class="kicker">08 · Núcleo del curso</span><h2>¿Dónde está Python dentro de APIAQ?</h2></div>
+        <div class="python-wheel">
+          <div class="py-center reveal" style="--d:.05s"><span>PY</span><b>Python</b><small>motor del backend</small></div>
+          <div class="py-item p1 reveal" style="--d:.12s"><b>Flask</b><span>rutas HTTP y JSON</span></div>
+          <div class="py-item p2 reveal" style="--d:.18s"><b>requests</b><span>consumo de OpenAQ</span></div>
+          <div class="py-item p3 reveal" style="--d:.24s"><b>Reglas</b><span>AQI EPA + OMS</span></div>
+          <div class="py-item p4 reveal" style="--d:.30s"><b>SQLite</b><span>persistencia</span></div>
+          <div class="py-item p5 reveal" style="--d:.36s"><b>pandas</b><span>análisis de datos</span></div>
+          <div class="py-item p6 reveal" style="--d:.42s"><b>Matplotlib</b><span>gráficas</span></div>
+          <div class="py-item p7 reveal" style="--d:.48s"><b>pytest</b><span>pruebas</span></div>
+        </div>
+        <button class="catalog-btn reveal" style="--d:.58s" data-open-catalog>Ver catálogo completo de funciones Python</button>
+      </section>
+
+      <section class="slide" data-title="main.py">
+        <div class="slide-heading"><span class="kicker">09 · Python</span><h2><code>main.py</code> coordina toda la aplicación</h2></div>
+        <div class="code-layout">
+          <div class="function-list">
+            <div class="fn reveal" style="--d:.04s"><code>ciudad_valida()</code><span>evita entradas vacías o caracteres no permitidos</span></div>
+            <div class="fn reveal" style="--d:.10s"><code>consultar_ciudad()</code><span>busca estaciones, obtiene lecturas y normaliza datos</span></div>
+            <div class="fn reveal" style="--d:.16s"><code>armar_consulta()</code><span>construye el JSON final con mediciones, AQI y OMS</span></div>
+            <div class="fn reveal" style="--d:.22s"><code>crear_app()</code><span>crea Flask, CORS, cliente OpenAQ y almacenamiento</span></div>
+            <div class="fn reveal" style="--d:.28s"><code>@app.get / @app.post</code><span>expone endpoints para web, historial y reportes</span></div>
+          </div>
+          <pre class="codebox reveal" style="--d:.16s"><code><span class="kw">@app.post</span>(<span class="str">"/consultar"</span>)
+<span class="kw">def</span> <span class="fnc">consultar</span>():
+    cuerpo = request.get_json(silent=<span class="bool">True</span>)
+    ciudad = cuerpo.get(<span class="str">"ciudad"</span>, <span class="str">""</span>)
+    resultado = consultar_ciudad(
+        app.cliente_openaq, ciudad
+    )
+    app.almacen.guardar_consulta_ok(...)
+    <span class="kw">return</span> jsonify(resultado)</code></pre>
+        </div>
+        <button class="catalog-btn small" data-open-catalog>Funciones de <code>main.py</code></button>
+      </section>
+
+      <section class="slide" data-title="Cliente OpenAQ">
+        <div class="slide-heading"><span class="kicker">10 · Python</span><h2><code>cliente_openaq.py</code>: hablar con una API real</h2></div>
+        <div class="three-col">
+          <div class="tech-card reveal" style="--d:.06s"><h3><code>_encabezados()</code></h3><p>Lee <code>OPENAQ_API_KEY</code> desde el entorno y crea los headers. Así la clave no queda expuesta en Angular.</p></div>
+          <div class="tech-card reveal" style="--d:.14s"><h3><code>obtener()</code></h3><p>Ejecuta <code>GET</code> con <code>requests.Session()</code>, timeout y validación del código HTTP y del JSON.</p></div>
+          <div class="tech-card reveal" style="--d:.22s"><h3><code>obtener_todo()</code></h3><p>Recorre la paginación con <code>while</code>, acumula resultados y se detiene cuando ya no hay más páginas.</p></div>
+        </div>
+        <div class="exception-flow reveal" style="--d:.3s"><span>Timeout</span><i>→</i><span>RequestException</span><i>→</i><span>429 / 5xx</span><i>→</i><b>ErrorOpenAQ</b><i>→</i><span>mensaje controlado</span></div>
+        <pre class="codebox compact reveal" style="--d:.38s"><code><span class="kw">try</span>:
+    respuesta = self.sesion.get(URL_BASE + ruta, headers=self._encabezados(), timeout=self.timeout)
+<span class="kw">except</span> requests.Timeout <span class="kw">as</span> error:
+    <span class="kw">raise</span> ErrorOpenAQ(<span class="str">"Tiempo de espera agotado"</span>) <span class="kw">from</span> error</code></pre>
+      </section>
+
+      <section class="slide" data-title="Normalización">
+        <div class="slide-heading"><span class="kicker">11 · Python</span><h2><code>normalizacion.py</code>: limpiar antes de interpretar</h2></div>
+        <div class="pipeline">
+          <div class="pipe reveal" style="--d:.04s">JSON crudo</div><span>→</span>
+          <div class="pipe reveal" style="--d:.11s">campos obligatorios</div><span>→</span>
+          <div class="pipe reveal" style="--d:.18s">tipo numérico</div><span>→</span>
+          <div class="pipe reveal" style="--d:.25s">fecha UTC</div><span>→</span>
+          <div class="pipe reveal" style="--d:.32s">sin duplicados</div><span>→</span>
+          <div class="pipe good reveal" style="--d:.39s">medición usable</div>
+        </div>
+        <div class="split-grid two">
+          <div class="glass-card reveal" style="--d:.2s"><h3><code>parsear_fecha()</code></h3><p>Usa <code>datetime.fromisoformat()</code> y <code>timezone.utc</code>. Si la fecha no tiene zona horaria o es inválida, devuelve <code>None</code>.</p></div>
+          <div class="glass-card reveal" style="--d:.28s"><h3><code>normalizar_mediciones()</code></h3><p>Aplica <code>for</code>, <code>if</code>, <code>set()</code> y <code>float()</code> para validar, convertir y detectar duplicados sin inventar valores.</p></div>
+        </div>
+      </section>
+
+      <section class="slide" data-title="AQI EPA">
+        <div class="slide-heading"><span class="kicker">12 · Python</span><h2><code>aqi.py</code>: convertir concentración en un índice válido</h2></div>
+        <div class="formula-card reveal" style="--d:.06s"><div class="formula">I = (I<sub>high</sub> − I<sub>low</sub>) / (C<sub>high</sub> − C<sub>low</sub>) × (C − C<sub>low</sub>) + I<sub>low</sub></div><p>Interpolación lineal dentro del breakpoint correspondiente.</p></div>
+        <div class="aqi-functions">
+          <div class="fn reveal" style="--d:.14s"><code>normalizar_unidad()</code><span>homologa variantes de µg/m³, ppm y ppb</span></div>
+          <div class="fn reveal" style="--d:.20s"><code>truncar()</code><span>aplica la precisión exigida antes del cálculo</span></div>
+          <div class="fn reveal" style="--d:.26s"><code>aqi_desde_concentracion()</code><span>busca el tramo y calcula el índice</span></div>
+          <div class="fn reveal" style="--d:.32s"><code>categoria_aqi()</code><span>traduce índice a Buena, Moderada, Dañina…</span></div>
+          <div class="fn reveal" style="--d:.38s"><code>calcular_aqi()</code><span>selecciona el AQI más alto entre mediciones compatibles</span></div>
+        </div>
+        <div class="rule-note reveal" style="--d:.46s"><b>Regla de integridad:</b> si la unidad o el periodo no coinciden con la tabla EPA, el sistema no calcula un AQI falso.</div>
+      </section>
+
+      <section class="slide" data-title="OMS">
+        <div class="slide-heading"><span class="kicker">13 · Python</span><h2><code>oms.py</code>: referencia sanitaria separada del AQI</h2></div>
+        <div class="split-grid two">
+          <div class="glass-card reveal" style="--d:.08s"><h3><code>comparar_medicion()</code></h3><p>Comprueba contaminante, periodo y unidad. Después calcula la diferencia frente al valor guía compatible.</p><div class="mini-code"><code>diferencia = round(valor - valor_guia, 3)</code></div></div>
+          <div class="glass-card reveal" style="--d:.16s"><h3><code>comparar_oms()</code></h3><p>Aplica la comparación a todas las mediciones y prioriza una comparación completa para mostrarla como resultado principal.</p><div class="mini-code"><code>[comparar_medicion(item) for item in mediciones]</code></div></div>
+        </div>
+        <div class="separation reveal" style="--d:.28s"><div><b>AQI EPA</b><span>Índice de 0 a 500 y categorías</span></div><strong>≠</strong><div><b>OMS AQG 2021</b><span>Valores guía sanitarios por contaminante y periodo</span></div></div>
+      </section>
+
+      <section class="slide" data-title="Persistencia">
+        <div class="slide-heading"><span class="kicker">14 · Python</span><h2><code>almacen.py</code>: guardar, consultar y descargar historial</h2></div>
+        <div class="db-flow">
+          <div class="db reveal" style="--d:.06s">Consulta válida</div><span>→</span><div class="db reveal" style="--d:.14s"><code>guardar_consulta_ok()</code></div><span>→</span><div class="db cylinder reveal" style="--d:.22s">SQLite</div><span>→</span><div class="db reveal" style="--d:.30s"><code>listar_*()</code></div><span>→</span><div class="db reveal" style="--d:.38s">Web / CSV</div>
+        </div>
+        <div class="three-col">
+          <div class="tech-card reveal" style="--d:.22s"><h3><code>with self._conectar()</code></h3><p>Usa un context manager para abrir y cerrar la conexión SQLite de manera segura.</p></div>
+          <div class="tech-card reveal" style="--d:.30s"><h3><code>csv.DictWriter</code></h3><p>Convierte el historial a texto CSV descargable desde el navegador.</p></div>
+          <div class="tech-card reveal" style="--d:.38s"><h3>SQL parametrizado</h3><p>Utiliza <code>?</code> y una lista de parámetros para filtros de estación, contaminante y fechas.</p></div>
+        </div>
+      </section>
+
+      <section class="slide" data-title="Análisis y gráficas">
+        <div class="slide-heading"><span class="kicker">15 · Python</span><h2><code>pandas</code> + <code>Matplotlib</code>: convertir historial en información visual</h2></div>
+        <div class="media-layout">
+          <div class="media-copy">
+            <div class="fn reveal" style="--d:.05s"><code>mediciones_a_dataframe()</code><span>crea DataFrame, convierte números/fechas, elimina nulos y ordena</span></div>
+            <div class="fn reveal" style="--d:.12s"><code>resumen_consulta()</code><span>calcula total, promedio, mínimo y máximo</span></div>
+            <div class="fn reveal" style="--d:.19s"><code>generar_imagen_historial()</code><span>traza los puntos reales sin interpolar huecos</span></div>
+            <div class="fn reveal" style="--d:.26s"><code>generar_imagen_estadisticas()</code><span>agrupa por contaminante y genera barras</span></div>
+            <pre class="codebox compact reveal" style="--d:.34s"><code>tabla = df.groupby(<span class="str">"contaminante"</span>).agg(
+    Promedio=(<span class="str">"valor"</span>, <span class="str">"mean"</span>),
+    Minimo=(<span class="str">"valor"</span>, <span class="str">"min"</span>),
+    Maximo=(<span class="str">"valor"</span>, <span class="str">"max"</span>)
+)</code></pre>
+          </div>
+          <figure class="media-shot reveal" style="--d:.2s"><img src="assets/screens/app_grafica.jpg" alt="Gráfica generada"><figcaption>Gráfica consumida desde el backend</figcaption></figure>
+        </div>
+      </section>
+
+      <section class="slide" data-title="Pruebas">
+        <div class="slide-heading"><span class="kicker">16 · Calidad</span><h2>Probar también fue parte del desarrollo en Python</h2></div>
+        <div class="big-stat-row">
+          <div class="stat accent reveal" style="--d:.05s"><strong>52</strong><span>funciones <code>test_*</code> en el backend</span></div>
+          <div class="stat reveal" style="--d:.13s"><strong>11</strong><span>archivos de pruebas</span></div>
+          <div class="stat reveal" style="--d:.21s"><strong>3</strong><span>niveles: unitario, integración, flujo</span></div>
+        </div>
+        <div class="test-grid">
+          <div class="test-card reveal" style="--d:.18s"><b>AQI y OMS</b><span>umbrales, unidades, periodos y datos incompatibles</span></div>
+          <div class="test-card reveal" style="--d:.24s"><b>OpenAQ</b><span>timeout, errores HTTP, JSON inválido y paginación</span></div>
+          <div class="test-card reveal" style="--d:.30s"><b>Persistencia</b><span>guardar, filtrar, ordenar, descargar y limpiar historial</span></div>
+          <div class="test-card reveal" style="--d:.36s"><b>API Flask</b><span>salud, ubicaciones, consulta y errores controlados</span></div>
+        </div>
+        <div class="evidence-strip one reveal" style="--d:.44s"><img src="assets/screens/postman.jpg" alt="Pruebas Postman" /></div>
+      </section>
+
+      <section class="slide" data-title="Resultado final">
+        <div class="slide-heading"><span class="kicker">17 · Producto</span><h2>Así se ve el resultado final</h2></div>
+        <div class="product-gallery">
+          <figure class="image-card wide reveal" style="--d:.06s"><img src="assets/screens/app_inicio.jpg" alt="Inicio"><figcaption>Selección de ciudad y estación</figcaption></figure>
+          <figure class="image-card wide reveal" style="--d:.14s"><img src="assets/screens/app_resultados.jpg" alt="Resultados"><figcaption>Mediciones + AQI EPA + OMS</figcaption></figure>
+          <figure class="image-card wide reveal" style="--d:.22s"><img src="assets/screens/app_grafica.jpg" alt="Gráfica"><figcaption>Historial y gráfica</figcaption></figure>
+        </div>
+      </section>
+
+      <section class="slide" data-title="Evidencias">
+        <div class="slide-heading"><span class="kicker">18 · Trazabilidad</span><h2>El desarrollo quedó respaldado con evidencias</h2></div>
+        <div class="evidence-grid">
+          <figure class="evidence reveal" style="--d:.04s"><img src="assets/screens/codigo.jpg" alt="Código Python"><figcaption>Código Python en VS Code</figcaption></figure>
+          <figure class="evidence reveal" style="--d:.10s"><img src="assets/screens/github_commits.jpg" alt="Commits"><figcaption>Commits en GitHub</figcaption></figure>
+          <figure class="evidence reveal" style="--d:.16s"><img src="assets/screens/jira_sprint.jpg" alt="Jira"><figcaption>Backlog y sprints en Jira</figcaption></figure>
+          <figure class="evidence reveal" style="--d:.22s"><img src="assets/screens/reunion.jpg" alt="Meet"><figcaption>Revisión y socialización del equipo</figcaption></figure>
+        </div>
+      </section>
+
+      <section class="slide" data-title="Repositorios">
+        <div class="slide-heading"><span class="kicker">19 · Reproducibilidad</span><h2>Dos repositorios, una sola aplicación</h2></div>
+        <div class="repo-grid">
+          <a class="repo reveal" style="--d:.05s" href="https://github.com/santiagonilopezlo-star/APIAQ-Back-End" target="_blank" rel="noreferrer"><span>Backend</span><b>APIAQ-Back-End</b><code>Python · Flask · SQLite · pandas · Matplotlib</code></a>
+          <a class="repo reveal" style="--d:.13s" href="https://github.com/santiagonilopezlo-star/-APIAQ-Front-End" target="_blank" rel="noreferrer"><span>Frontend</span><b>-APIAQ-Front-End</b><code>Angular · TypeScript · HTML · SCSS</code></a>
+        </div>
+        <div class="run-grid">
+          <pre class="terminal reveal" style="--d:.22s"><code><span>$</span> python -m venv .venv
+<span>$</span> .venv\Scripts\activate
+<span>$</span> pip install -r requirements.txt
+<span>$</span> python -m flask --app backend/app/main run</code></pre>
+          <pre class="terminal reveal" style="--d:.30s"><code><span>$</span> npm install
+<span>$</span> npm start
+
+Angular → http://localhost:4200
+Flask   → http://127.0.0.1:5000</code></pre>
+        </div>
+      </section>
+
+      <section class="slide" data-title="Aprendizajes">
+        <div class="slide-heading"><span class="kicker">20 · Aprendizajes</span><h2>Lo más importante que aprendimos con Python</h2></div>
+        <div class="lessons">
+          <div class="lesson reveal" style="--d:.05s"><span>01</span><b>Consumir servicios reales</b><p>Trabajar con HTTP, JSON, API keys, timeout y paginación.</p></div>
+          <div class="lesson reveal" style="--d:.12s"><span>02</span><b>Validar antes de calcular</b><p>No todo dato puede convertirse en un índice sin revisar unidad y periodo.</p></div>
+          <div class="lesson reveal" style="--d:.19s"><span>03</span><b>Separar responsabilidades</b><p>Cada módulo Python tiene una función concreta y eso facilita probar y mantener.</p></div>
+          <div class="lesson reveal" style="--d:.26s"><span>04</span><b>Persistir y analizar</b><p>SQLite, CSV, pandas y Matplotlib permitieron conservar y explorar el historial.</p></div>
+          <div class="lesson reveal" style="--d:.33s"><span>05</span><b>Probar escenarios negativos</b><p>Una aplicación real debe responder bien cuando OpenAQ falla o no hay datos.</p></div>
+          <div class="lesson reveal" style="--d:.40s"><span>06</span><b>Integrar frontend y backend</b><p>Python quedó como núcleo de lógica, mientras Angular se encargó de la experiencia del usuario.</p></div>
+        </div>
+      </section>
+
+      <section class="slide closing" data-title="Cierre">
+        <div class="closing-inner">
+          <img class="closing-logo reveal" style="--d:.05s" src="assets/brand/apiaq.png" alt="APIAQ" />
+          <h2 class="reveal" style="--d:.14s">De datos abiertos a información útil</h2>
+          <p class="reveal" style="--d:.22s">APIAQ demostró que Python puede conectar una fuente externa, validar datos, aplicar reglas, almacenar resultados, generar reportes y sostener una aplicación web completa.</p>
+          <div class="closing-badges reveal" style="--d:.30s"><span>8 sprints</span><span>40 tareas</span><span>52 pruebas</span><span>Producto funcional</span></div>
+          <h3 class="reveal" style="--d:.38s">Gracias · Preguntas</h3>
+        </div>
+      </section>
+    </main>
+
+    <footer class="deck-controls">
+      <button id="prev" aria-label="Diapositiva anterior">←</button>
+      <div class="progress"><i id="progressBar"></i></div>
+      <div id="counter" class="counter">1 / 21</div>
+      <button id="tocBtn" aria-label="Índice">☰</button>
+      <button id="fullBtn" aria-label="Pantalla completa">⛶</button>
+      <button id="next" aria-label="Diapositiva siguiente">→</button>
+    </footer>
+  </div>
+
+  <aside id="toc" class="toc" aria-hidden="true">
+    <div class="toc-head"><b>Índice de la presentación</b><button id="tocClose">×</button></div>
+    <div id="tocList" class="toc-list"></div>
+  </aside>
+
+  <div id="imageViewer" class="image-viewer" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Visor de imagen ampliada">
+    <button id="imageViewerClose" class="image-viewer-close" aria-label="Cerrar imagen">×</button>
+    <button id="imageViewerPrev" class="image-viewer-nav image-viewer-prev" aria-label="Imagen anterior">←</button>
+    <div class="image-viewer-stage">
+      <img id="imageViewerImg" src="" alt="" />
+      <div class="image-viewer-info">
+        <strong id="imageViewerTitle"></strong>
+        <span>Esc para cerrar · ← → para cambiar · clic fuera para volver</span>
+      </div>
+    </div>
+    <button id="imageViewerNext" class="image-viewer-nav image-viewer-next" aria-label="Imagen siguiente">→</button>
+  </div>
+
+  <div id="catalog" class="modal" aria-hidden="true">
+    <div class="modal-panel">
+      <div class="modal-head"><div><span class="kicker">Anexo interactivo</span><h2>Catálogo de funciones y métodos Python</h2></div><button id="catalogClose">×</button></div>
+      <div class="catalog-tools"><input id="catalogSearch" type="search" placeholder="Buscar: calcular_aqi, SQLite, OpenAQ…"/><span id="catalogCount"></span></div>
+      <div id="catalogGrid" class="catalog-grid"></div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
